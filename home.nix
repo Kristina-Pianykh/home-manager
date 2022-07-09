@@ -23,6 +23,10 @@ in
       pkgs.nerdfonts
     ];
     shellAliases = {
+      ls="lsd -la";
+      lsd="lsd -la";
+      rm="rm -f";
+      home="code ~/.config/nixpkgs/home.nix";
     };
   };
   fonts.fontconfig.enable = true;
@@ -37,9 +41,10 @@ in
     };
     extraConfig = ''
       allow_remote_control yes
-      background_image ${homeDirectory}/nord_valley1.png
-      background_image_opacity 0.9
-      background_image_layout scaled
+      background_opacity 0.93
+      # background_image ${homeDirectory}/nord_valley1.png
+      # background_image_opacity 0.9
+      # background_image_layout scaled
       linux_display_server x11
 
       # foreground            #D8DEE9
