@@ -57,4 +57,32 @@ in
     };
   };
   programs.home-manager.enable = true;
+  
+  programs.git = {
+  enable = true;
+  userName = "Kristina Pianykh";
+  userEmail = "kristina.pianykh@diconium.com";
+  signing = {
+    key = "3A09BEC8E7DCA833";
+    gpgPath = "/usr/bin/gpg";
+    signByDefault = true;
+  };
+  diff-so-fancy.enable = true;
+  extraConfig = {
+    init = {
+        defaultBranch = "main";
+    };
+  };
+  includes = [
+  { 
+    condition = "gitdir:${homeDirectory}/Private/";
+    contents = {
+      user = {
+        name = "Kristina Pianykh";
+        email = "kristinavrnrus@gmail.com";
+      };
+    };
+  }
+  ];
+  };
 }
