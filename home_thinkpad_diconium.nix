@@ -9,11 +9,12 @@ in
   home = {
     inherit username homeDirectory;
     stateVersion = "22.05";
-    packages = [
-      pkgs.lsd
-      pkgs.bat
-      pkgs.nerdfonts
-      pkgs.joypixels
+    packages = with pkgs; [
+      lsd
+      bat
+      nerdfonts
+      joypixels
+      awscli
     ];
     shellAliases = {
       ls="lsd -la";
