@@ -81,6 +81,10 @@ in
       user = {
         name = "Kristina Pianykh";
         email = "kristinavrnrus@gmail.com";
+        signingKey = "C66C7DFC66E169F1";
+      };
+      commit = {
+        gpgSign = true;
       };
     };
   }
