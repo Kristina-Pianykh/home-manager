@@ -16,11 +16,18 @@ in
       joypixels
       awscli
     ];
+    sessionPath = [
+      "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
+      "${homeDirectory}/slides"
+      "${homeDirectory}/act"
+    ];
     shellAliases = {
       ls="lsd -la";
       lsd="lsd -la";
       rm="rm -f";
       home="code ~/.config/nixpkgs/home.nix";
+      mnt="cd /mnt/c/Users/pianykri/'OneDrive - diconium GmbH'";
+      ipython="ipython3";
     };
   };
   fonts.fontconfig.enable = true;
@@ -36,9 +43,13 @@ in
     history.extended = true;
     dotDir = ".config/zsh";
     initExtraFirst = ''
-      export PYENV_ROOT="$HOME/.pyenv"
-      command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-      eval "$(pyenv init -)"
+      export GPG_TTY=$(tty)
+      
+      eval "$(ssh-agent -s)"
+      ssh-add ~/.ssh/work
+
+      eval "$(direnv hook zsh)"
+      eval "$(direnv stdlib)"
     '';
     prezto = {
       enable = true;
