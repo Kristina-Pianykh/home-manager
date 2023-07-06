@@ -75,9 +75,9 @@ in
   programs.git = {
   enable = true;
   userName = "Kristina Pianykh";
-  userEmail = "kristina.pianykh@diconium.com";
+  userEmail = "kristinavrnrus@gmail.com";
   signing = {
-    key = "3A09BEC8E7DCA833";
+    key = "C66C7DFC66E169F1"; # 3A09BEC8E7DCA833
     gpgPath = "/usr/bin/gpg";
     signByDefault = true;
   };
@@ -89,12 +89,12 @@ in
   };
   includes = [
   { 
-    condition = "gitdir:${homeDirectory}/Private/";
+    condition = "gitdir:${homeDirectory}/Work/";
     contents = {
       user = {
         name = "Kristina Pianykh";
-        email = "kristinavrnrus@gmail.com";
-        signingKey = "C66C7DFC66E169F1";
+        email = "kristina.pianykh@diconium.com";
+        signingKey = "3A09BEC8E7DCA833"; # C66C7DFC66E169F1
       };
       commit = {
         gpgSign = true;
