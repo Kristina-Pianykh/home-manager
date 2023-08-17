@@ -16,6 +16,7 @@ in
       joypixels
       awscli
       rustup
+      parquet-tools
     ];
     sessionPath = [
       "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
