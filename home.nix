@@ -53,6 +53,8 @@ in
 
       eval "$(direnv hook zsh)"
       eval "$(direnv stdlib)"
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
     '';
     prezto = {
       enable = true;
