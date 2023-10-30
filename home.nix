@@ -73,6 +73,11 @@ in
       ];
     };
   };
+  programs.pyenv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+  };
   programs.home-manager.enable = true;
   
   programs.git = {
