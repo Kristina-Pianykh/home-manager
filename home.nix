@@ -80,7 +80,7 @@ in
   userName = "Kristina Pianykh";
   userEmail = "kristinavrnrus@gmail.com";
   signing = {
-    key = "C66C7DFC66E169F1"; # 3A09BEC8E7DCA833
+    key = "C66C7DFC66E169F1";
     gpgPath = "/usr/bin/gpg";
     signByDefault = true;
   };
@@ -97,7 +97,7 @@ in
       user = {
         name = "Kristina Pianykh";
         email = "kristina.pianykh@diconium.com";
-        signingKey = "3A09BEC8E7DCA833"; # C66C7DFC66E169F1
+        signingKey = "3A09BEC8E7DCA833";
       };
       commit = {
         gpgSign = true;
