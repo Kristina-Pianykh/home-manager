@@ -42,7 +42,7 @@ in
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     history.extended = true;
     dotDir = ".config/zsh";
     initExtraFirst = ''
