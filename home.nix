@@ -55,6 +55,7 @@ in
       eval "$(direnv stdlib)"
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
+      export PATH="$PATH:/home/piankris/.local/share/coursier/bin"
     '';
     prezto = {
       enable = true;
@@ -77,6 +78,12 @@ in
     enable = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
+  };
+  programs.neovim = {
+    enable = true;
+    extraConfig = ''
+      set number relativenumber
+    '';
   };
   programs.home-manager.enable = true;
   
