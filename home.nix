@@ -18,7 +18,6 @@ in
       rustup
       parquet-tools
       ripgrep
-      fd
     ];
     sessionPath = [
       "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
