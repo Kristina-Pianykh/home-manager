@@ -17,6 +17,8 @@ in
       awscli
       rustup
       parquet-tools
+      ripgrep
+      fd
     ];
     sessionPath = [
       "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
@@ -255,6 +257,11 @@ in
              \   'cache_enabled': 0,
              \ }
         nmap mo o<Esc>k
+        " Shortutting split navigation
+        nnoremap <Space>h <C-w>h
+        nnoremap <Space>j <C-w>j
+        nnoremap <Space>k <C-w>k
+        nnoremap <Space>l <C-w>l
       ''
       ;
       plugins = with pkgs.vimPlugins; [
@@ -375,6 +382,43 @@ in
             let g:copilot_no_tab_map = v:true
           '';
         }
+        plenary-nvim
+        telescope-fzf-native-nvim
+        {
+          plugin = telescope-nvim;
+          config = ''
+          lua << EOF
+          require("telescope").setup({
+            -- defaults = {
+            --   layout_strategy = "vertical",
+            -- },
+            pickers = {
+              find_files = {
+                find_command = { "rg", "--files", "--ignore", "-g", "!.git", "--hidden" },
+              }
+            }
+          })
+
+          local builtin = require("telescope.builtin")
+          vim.keymap.set("n", "<Space>p", builtin.find_files, {})
+          vim.keymap.set("n", "<Space>g", builtin.live_grep, {})
+          EOF
+          '';
+        }
+        nvim-web-devicons
+        {
+          plugin = nvim-tree-lua;
+          config = ''
+            lua << EOF
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
+            require("nvim-tree").setup()
+            vim.keymap.set("n", "<Space>e", ":NvimTreeClose<Enter>:G<Enter>", {silent = true})
+            vim.keymap.set("n", "<Space>t", ":NvimTreeToggle<Enter>", {silent = true})
+            EOF
+          '';
+        }
+        vim-fugitive
       ];
     };
 
