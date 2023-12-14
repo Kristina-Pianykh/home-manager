@@ -18,12 +18,19 @@ in
       rustup
       parquet-tools
       ripgrep
+      # parallel
     ];
+
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
+
     sessionPath = [
       "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
       "${homeDirectory}/slides"
       "${homeDirectory}/act"
     ];
+
     shellAliases = {
       ls="lsd -la";
       lsd="lsd -la";
@@ -34,16 +41,23 @@ in
       ipython="ipython3";
     };
   };
+
   fonts.fontconfig.enable = true;
 
   programs.starship = {
     enable = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    enableAutosuggestions = false;
     syntaxHighlighting.enable = true;
+    enableCompletion = false;
     history.extended = true;
     dotDir = ".config/zsh";
     initExtraFirst = ''
@@ -52,18 +66,17 @@ in
       eval "$(ssh-agent -s)"
       ssh-add ~/.ssh/work
 
-      eval "$(direnv hook zsh)"
-      eval "$(direnv stdlib)"
+      # eval "$(direnv hook zsh)"
+      # eval "$(direnv stdlib)"
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word 
     '';
     prezto = {
       enable = true;
-      extraConfig = ''
-        # alias node="nocorrect node"
-        # alias yarn="nocorrect yarn"
-      '';
       pmodules = [
+        # "syntax-highlighting"
+        "history-substring-search"
+        "autosuggestions"
         "environment"
         "terminal"
         "history"
@@ -73,7 +86,52 @@ in
         "completion"
       ];
     };
+    zplug = {
+      enable = true;
+      plugins = [
+        {
+          name = "jeffreytse/zsh-vi-mode";
+        }
+      ];
+      zplugHome = "${config.xdg.configHome}/zplug";
+    };
   };
+
+  # programs.zsh = {
+  #   enable = true;
+  #   enableAutosuggestions = true;
+  #   syntaxHighlighting.enable = true;
+  #   history.extended = true;
+  #   dotDir = ".config/zsh";
+  #   initExtraFirst = ''
+  #     export GPG_TTY=$(tty)
+  #     
+  #     eval "$(ssh-agent -s)"
+  #     ssh-add ~/.ssh/work
+  #
+  #     # eval "$(direnv hook zsh)"
+  #     # eval "$(direnv stdlib)"
+  #     bindkey "^[[1;5C" forward-word
+  #     bindkey "^[[1;5D" backward-word 
+  #   '';
+  #   prezto = {
+  #     enable = true;
+  #     extraConfig = ''
+  #       # alias node="nocorrect node"
+  #       # alias yarn="nocorrect yarn"
+  #     '';
+  #     pmodules = [
+  #       "environment"
+  #       "terminal"
+  #       "history"
+  #       "directory"
+  #       "spectrum"
+  #       "utility"
+  #       "completion"
+  #     ];
+  #   };
+  # };
+
   programs.pyenv = {
     enable = true;
     enableZshIntegration = true;
@@ -242,6 +300,7 @@ in
         set clipboard+=unnamedplus
         set signcolumn=yes:1
         set nohlsearch
+        set laststatus=3
         " Fixing shit clipboard in WSL
         let g:clipboard = {
              \   'name': 'WslClipboard',
@@ -272,21 +331,19 @@ in
             autocmd FileType json let b:autopairs_enabled = 0
           '';
         }
-        {
-          plugin = vim-smoothie;
-          config = ''
-            nnoremap <unique> <Space>d <cmd>call smoothie#do("\<C-D>") <CR>
-            vnoremap <unique> <Space>d <cmd>call smoothie#do("\<C-D>") <CR>
-            nnoremap <unique> <Space>u <cmd>call smoothie#do("\<C-U>") <CR>
-            vnoremap <unique> <Space>u <cmd>call smoothie#do("\<C-U>") <CR>
-          '';
-        }
+
+        vim-smoothie
         # https://github.com/tomtom/tNONEcomment_vim
         tcomment_vim
 
-        # Very useful but needs to be learned
-        # https://github.com/tpope/vim-surround
-        # vim-surround
+        {
+          plugin = nvim-surround;
+          config = ''
+            lua << EOF
+            require("nvim-surround").setup({})
+            EOF
+          '';
+        }
 
         # Awesome Git integration - Needs to be learned
         # https://github.com/tpope/vim-fugitive
@@ -411,13 +468,54 @@ in
             lua << EOF
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
-            require("nvim-tree").setup()
+            require("nvim-tree").setup({
+              filters = {
+                git_ignored = false
+              }
+            })
             vim.keymap.set("n", "<Space>e", ":NvimTreeClose<Enter>:G<Enter>", {silent = true})
             vim.keymap.set("n", "<Space>t", ":NvimTreeToggle<Enter>", {silent = true})
             EOF
           '';
         }
         vim-fugitive
+        {
+          plugin = nvim-cokeline;
+          config = ''
+            lua << EOF
+            local get_hl_attr = require("cokeline.hlgroups").get_hl_attr
+            require("cokeline").setup({
+              sidebar = {
+                filetype = {'NvimTree'},
+                components = {
+                  {
+                    text = function(buf)
+                      return buf.filetype
+                    end,
+                    fg = yellow,
+                    bg = function() return get_hl_attr('NvimTreeNormal', 'bg') end,
+                    bold = true,
+                  },
+                }
+              },
+            })
+            vim.keymap.set("n", "<Space>,", "<Plug>(cokeline-focus-prev)", { silent = true })
+            vim.keymap.set("n", "<Space>.", "<Plug>(cokeline-focus-next)", { silent = true })
+            vim.keymap.set("n", "<Space><", "<Plug>(cokeline-switch-prev)", { silent = true })
+            vim.keymap.set("n", "<Space>>", "<Plug>(cokeline-switch-next)", { silent = true })
+            vim.keymap.set("n", "<Space>w", ":bdelete<Enter>", { silent = true })
+
+            vim.keymap.set("n", "<Space>w", function ()
+                local current_buffer = vim.api.nvim_get_current_buf()
+                require("cokeline.utils").buf_delete(current_buffer)
+            end, { silent = true })
+
+            for i = 1, 9 do
+                vim.keymap.set("n", ("<Space>%s"):format(i), ("<Plug>(cokeline-focus-%s)"):format(i), { silent = true })
+            end
+            EOF
+          '';
+        }
       ];
     };
 
