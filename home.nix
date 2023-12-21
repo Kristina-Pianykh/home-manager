@@ -18,6 +18,7 @@ in
       rustup
       parquet-tools
       ripgrep
+      keychain
       # parallel
     ];
 
@@ -301,9 +302,9 @@ in
         set number relativenumber
         set pumheight=10
         set mouse=a
+        set hlsearch
         set clipboard+=unnamedplus
         set signcolumn=yes:1
-        set nohlsearch
         set laststatus=3
         " Fixing shit clipboard in WSL
         let g:clipboard = {
