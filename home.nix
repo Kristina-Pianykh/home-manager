@@ -1,49 +1,61 @@
 { config, pkgs, lib, ... }:
 
 let 
-  username = "piankris";
-  homeDirectory = "/home/${username}";
+  username = "krispian";
+  homeDirectory = "/Users/${username}";
   nullPackage = name: pkgs.writeShellScriptBin name "";
 in
 {
+  nixpkgs.config.allowUnfree = true;
   home = {
     inherit username homeDirectory;
-    stateVersion = "23.05";
+    stateVersion = "23.11";
     packages = with pkgs; [
       lsd
       bat
-      nerdfonts
-      joypixels
+      #nerdfonts
+      #joypixels
       awscli
       rustup
       parquet-tools
       ripgrep
-      keychain
-      # parallel
+      gnupg
+      poetry
+      tree
+      jdk
+      libreoffice-bin
+      fzf
+      jq
+      docker
+      docker-compose
+      azure-cli
+      tflint
+      terraform
+      go
+      maven
+      fd # extends capabilities of rg
+      nodePackages.pyright
+      luajitPackages.lua-lsp
+      nodejs_21
+      terraform-ls
     ];
 
     sessionVariables = {
       EDITOR = "nvim";
+      JAVA_HOME = pkgs.jdk;
     };
 
-    sessionPath = [
-      "${homeDirectory}/Work/data-delivery-backend/.venv/bin/sqlfluff"
-      "${homeDirectory}/slides"
-      "${homeDirectory}/act"
-    ];
-
     shellAliases = {
+      nvim = "NVIM_APPNAME=neovim-config ${pkgs.neovim}/bin/nvim";
       ls="lsd -la";
       lsd="lsd -la";
       rm="rm -f";
-      home="code ~/.config/nixpkgs/home.nix";
-      mnt="cd /mnt/c/Users/pianykri/'OneDrive - diconium GmbH'";
-      desktop="cd /mnt/c/Users/pianykri/'OneDrive - diconium GmbH'/Desktop";
+      home="$EDITOR ~/.config/home-manager/home.nix";
       ipython="ipython3";
     };
   };
 
-  fonts.fontconfig.enable = true;
+  #fonts.fontconfig.enable = true;
 
   programs.starship = {
     enable = true;
@@ -65,17 +77,20 @@ in
     enableCompletion = false;
     history.extended = true;
     dotDir = ".config/zsh";
+
     initExtraFirst = ''
       export GPG_TTY=$(tty)
-      
       eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/work
-
-      # eval "$(direnv hook zsh)"
-      # eval "$(direnv stdlib)"
+      ssh-add --apple-load-keychain
+      
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word 
     '';
+
+    profileExtra = ''
+      	eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
+
     prezto = {
       enable = true;
       pmodules = [
@@ -102,52 +117,67 @@ in
     };
   };
 
-  # programs.zsh = {
-  #   enable = true;
-  #   enableAutosuggestions = true;
-  #   syntaxHighlighting.enable = true;
-  #   history.extended = true;
-  #   dotDir = ".config/zsh";
-  #   initExtraFirst = ''
-  #     export GPG_TTY=$(tty)
-  #     
-  #     eval "$(ssh-agent -s)"
-  #     ssh-add ~/.ssh/work
-  #
-  #     # eval "$(direnv hook zsh)"
-  #     # eval "$(direnv stdlib)"
-  #     bindkey "^[[1;5C" forward-word
-  #     bindkey "^[[1;5D" backward-word 
-  #   '';
-  #   prezto = {
-  #     enable = true;
-  #     extraConfig = ''
-  #       # alias node="nocorrect node"
-  #       # alias yarn="nocorrect yarn"
-  #     '';
-  #     pmodules = [
-  #       "environment"
-  #       "terminal"
-  #       "history"
-  #       "directory"
-  #       "spectrum"
-  #       "utility"
-  #       "completion"
-  #     ];
-  #   };
-  # };
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "FiraCode Nerd Font";
+      size = 14;
+    };
+    settings = {
+      shell = "${config.programs.zsh.package}/bin/zsh";
+      window_padding_width = 10;
+      confirm_os_window_close = 0;
+      background = "#2e3440";
+      foreground = "#cdcecf";
+      selection_background = "#3e4a5b";
+      selection_foreground = "#cdcecf";
+      cursor_text_color = "#2e3440";
+      url_color = "#a3be8c";
+      cursor = "#cdcecf";
+
+      # Border
+      active_border_color = "#81a1c1";
+      inactive_border_color = "#5a657d";
+      bell_border_color = "#c9826b";
+
+      # Tabs
+      active_tab_background = "#81a1c1";
+      active_tab_foreground = "#232831";
+      inactive_tab_background = "#3e4a5b";
+      inactive_tab_foreground = "#60728a";
+
+      # normal
+      color0 = "#3b4252";
+      color1 = "#bf616a";
+      color2 = "#a3be8c";
+      color3 = "#ebcb8b";
+      color4 = "#81a1c1";
+      color5 = "#b48ead";
+      color6 = "#88c0d0";
+      color7 = "#e5e9f0";
+
+      # bright
+      color8 = "#465780";
+      color9 = "#d06f79";
+      color10 = "#b1d196";
+      color11 = "#f0d399";
+      color12 = "#8cafd2";
+      color13 = "#c895bf";
+      color14 = "#93ccdc";
+      color15 = "#e7ecf4";
+
+      # extended colors
+      color16 = "#c9826b";
+      color17 = "#bf88bc";
+    };
+  };
 
   programs.pyenv = {
     enable = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
   };
-  # programs.neovim = {
-  #   enable = true;
-  #   extraConfig = ''
-  #     set number relativenumber
-  #   '';
-  # };
+
   programs.home-manager.enable = true;
   programs.neovim = let
     # Function to fetch plugins from github if they're not already in the nix store
@@ -166,6 +196,7 @@ in
       };
     in {
       enable = true;
+      vimAlias = true;
       withNodeJs = true;
       # COC CONFIG CURRENTLY DISABLED! UNCOMMENT TO ENABLE!
       # ===================================================
@@ -181,7 +212,7 @@ in
         enable = true;
         pluginConfig = ''
           let mapleader = ","
-          let g:coc_global_extensions = ["coc-pyright","coc-yaml","coc-json", "coc-prettier"]
+          let g:coc_global_extensions = ["coc-pyright", "coc-java", "coc-yaml","coc-json", "coc-prettier"]
           set nobackup
           set nowritebackup
           set cmdheight=1
@@ -306,19 +337,6 @@ in
         set clipboard+=unnamedplus
         set signcolumn=yes:1
         set laststatus=3
-        " Fixing shit clipboard in WSL
-        let g:clipboard = {
-             \   'name': 'WslClipboard',
-             \   'copy': {
-             \      '+': 'clip.exe',
-             \      '*': 'clip.exe',
-             \    },
-             \   'paste': {
-             \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-             \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-             \   },
-             \   'cache_enabled': 0,
-             \ }
         nmap mo o<Esc>k
         " Shortutting split navigation
         nnoremap <Space>h <C-w>h
@@ -530,7 +548,7 @@ in
     userEmail = "kristinavrnrus@gmail.com";
     signing = {
       key = "C66C7DFC66E169F1";
-      gpgPath = "/usr/bin/gpg";
+      gpgPath = "${pkgs.gnupg}/bin/gpg";
       signByDefault = true;
     };
     diff-so-fancy.enable = true;
@@ -538,6 +556,7 @@ in
       init = {
           defaultBranch = "main";
       };
+      core.editor = "nvim";
     };
     includes = [
       { 
@@ -546,11 +565,11 @@ in
           user = {
             name = "Kristina Pianykh";
             email = "kristina.pianykh@diconium.com";
-            signingKey = "3A09BEC8E7DCA833";
+           signingKey = "3A09BEC8E7DCA833";
           };
-          commit = {
-            gpgSign = true;
-          };
+         commit = {
+           gpgSign = true;
+         };
         };
       }
     ];
