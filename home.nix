@@ -80,8 +80,17 @@ in
 
     initExtraFirst = ''
       export GPG_TTY=$(tty)
-      eval "$(ssh-agent -s)"
-      ssh-add --apple-load-keychain
+
+      if [ -z "$SSH_AUTH_SOCK" ] && [ -z "$SSH_AGENT_PID" ]; then
+        # If no SSH Agent is running, start one and load keys from Apple keychain
+        eval "$(ssh-agent -s)"
+        ssh-add --apple-load-keychain
+      else
+        if [ -z "$(ssh-add -l | grep SHA256)" ]; then
+          # If agent is running but has no keys, load keys from Apple keychain
+          ssh-add --apple-load-keychain
+        fi
+      fi
       
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word 
