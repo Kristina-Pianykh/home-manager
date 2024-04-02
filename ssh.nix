@@ -7,6 +7,7 @@
       work = {
         host = "work";
         hostname = "github.com";
+        identitiesOnly = true;
         identityFile = "${config.home.homeDirectory}/.ssh/work";
         extraOptions = {
           AddKeysToAgent = "yes";
@@ -16,6 +17,7 @@
       priv = {
         host = "priv";
         hostname = "github.com";
+        identitiesOnly = true;
         identityFile = "${config.home.homeDirectory}/.ssh/private";
         extraOptions = {
           AddKeysToAgent = "yes";
@@ -25,6 +27,7 @@
       bitbucket = {
         host = "workbitbucket";
         hostname = "bitbucket.org";
+        identitiesOnly = true;
         identityFile = "${config.home.homeDirectory}/.ssh/work";
         extraOptions = {
           AddKeysToAgent = "yes";
