@@ -11,6 +11,7 @@ in
     ./kitty.nix
     ./nvim.nix
     ./git.nix
+    ./ssh.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
