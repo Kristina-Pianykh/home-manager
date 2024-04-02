@@ -24,7 +24,7 @@ in
       #joypixels
       awscli
       rustup
-      parquet-tools
+      # parquet-tools # lib deps need update on their side
       ripgrep
       gnupg
       poetry
@@ -45,6 +45,7 @@ in
       luajitPackages.lua-lsp
       nodejs_21
       terraform-ls
+      sops
     ];
 
     sessionVariables = {
