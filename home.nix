@@ -12,6 +12,7 @@ in
     ./nvim.nix
     ./git.nix
     ./ssh.nix
+    ./dotfiles/ideavimrc.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

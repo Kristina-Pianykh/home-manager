@@ -1,7 +1,7 @@
 {config, pkgs, ...}: {
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "no";
+    # addKeysToAgent = "no"; # available in unstable for now
     forwardAgent = false;
     matchBlocks = {
       work = {

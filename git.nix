@@ -1,22 +1,5 @@
 {config, pkgs, ...}: {
 
-  # options = {
-  #   git = {
-  #     homeDirectory = lib.mkOption {
-  #       type = lib.types.str;
-  #     };
-  #     enable = lib.mkOption {
-  #       type = lib.types.bool;
-  #       default = true;
-  #     };
-  #   };
-  # };
-  #
-  # cfg = config.module.git;
-  # config = {
-  #   homeDirectory = 
-  # }
-
   programs.git = {
     enable = true;
     userName = "Kristina Pianykh";
