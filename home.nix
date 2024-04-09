@@ -45,6 +45,9 @@ in
       fd # extends capabilities of rg
       nodePackages.pyright
       luajitPackages.lua-lsp
+      prettierd
+      stylua
+      ruff
       nodejs_21
       terraform-ls
       sops
