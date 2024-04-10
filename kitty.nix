@@ -5,6 +5,12 @@
       name = "FiraCode Nerd Font";
       size = 14;
     };
+    keybindings = {
+      "cmd+enter" = "new_window_with_cwd";
+      "cmd+d" = "close_window";
+      "cmd+j" = "next_window";
+      "cmd+k" = "previous_window";
+    };
     settings = {
       shell = "${config.programs.zsh.package}/bin/zsh";
       window_padding_width = 10;
