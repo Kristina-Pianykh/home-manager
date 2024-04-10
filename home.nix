@@ -1,11 +1,13 @@
-{ config, pkgs, lib, ... }:
-
-let 
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   username = "krispian";
   homeDirectory = "/Users/${username}";
   nullPackage = name: pkgs.writeShellScriptBin name "";
-in
-{
+in {
   imports = [
     ./zsh.nix
     ./kitty.nix
@@ -48,6 +50,7 @@ in
       prettierd
       stylua
       ruff
+      alejandra
       nodejs_21
       terraform-ls
       sops
@@ -60,11 +63,11 @@ in
 
     shellAliases = {
       nvim = "NVIM_APPNAME=neovim-config ${pkgs.neovim}/bin/nvim";
-      ls="lsd -la";
-      lsd="lsd -la";
-      rm="rm -f";
-      home="$EDITOR ~/.config/home-manager/home.nix";
-      ipython="ipython3";
+      ls = "lsd -la";
+      lsd = "lsd -la";
+      rm = "rm -f";
+      home = "$EDITOR ~/.config/home-manager/home.nix";
+      ipython = "ipython3";
     };
   };
 

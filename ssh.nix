@@ -1,4 +1,8 @@
-{config, pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.ssh = {
     enable = true;
     # addKeysToAgent = "no"; # available in unstable for now

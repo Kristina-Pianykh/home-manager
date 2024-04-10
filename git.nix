@@ -1,5 +1,8 @@
-{config, pkgs, ...}: {
-
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.git = {
     enable = true;
     userName = "Kristina Pianykh";
@@ -12,22 +15,22 @@
     diff-so-fancy.enable = true;
     extraConfig = {
       init = {
-          defaultBranch = "main";
+        defaultBranch = "main";
       };
       core.editor = "nvim";
     };
     includes = [
-      { 
+      {
         condition = "gitdir:${config.home.homeDirectory}/Work/";
         contents = {
           user = {
             name = "Kristina Pianykh";
             email = "kristina.pianykh@diconium.com";
-           signingKey = "3A09BEC8E7DCA833";
+            signingKey = "3A09BEC8E7DCA833";
           };
-         commit = {
-           gpgSign = true;
-         };
+          commit = {
+            gpgSign = true;
+          };
         };
       }
     ];

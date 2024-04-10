@@ -15,22 +15,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."krispian" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    sops-nix,
+    ...
+  }: let
+    system = "aarch64-darwin";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    homeConfigurations."krispian" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          ./home.nix
-          sops-nix.homeManagerModules.sops
-        ];
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+      # Specify your home configuration modules here, for example,
+      # the path to your home.nix.
+      modules = [
+        ./home.nix
+        sops-nix.homeManagerModules.sops
+      ];
+      # Optionally use extraSpecialArgs
+      # to pass through arguments to home.nix
     };
+  };
 }

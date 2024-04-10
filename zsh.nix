@@ -21,13 +21,13 @@
           ssh-add --apple-load-keychain
         fi
       fi
-      
+
       bindkey "^[[1;5C" forward-word
-      bindkey "^[[1;5D" backward-word 
+      bindkey "^[[1;5D" backward-word
     '';
 
     profileExtra = ''
-      	eval "$(/opt/homebrew/bin/brew shellenv)"
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
 
     prezto = {
