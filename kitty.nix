@@ -12,6 +12,7 @@
       "cmd+k" = "previous_window";
     };
     settings = {
+      enabled_layouts = "tall";
       shell = "${config.programs.zsh.package}/bin/zsh";
       window_padding_width = 10;
       confirm_os_window_close = 0;
