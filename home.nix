@@ -54,6 +54,8 @@ in {
       nodejs_21
       terraform-ls
       sops
+      python311Packages.ipython
+      openssl
     ];
 
     sessionVariables = {
