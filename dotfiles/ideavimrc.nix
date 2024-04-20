@@ -10,7 +10,14 @@
     set relativenumber
     set pumheight=10
     set hlsearch
+    nnoremap <silent> <Esc> :nohlsearch<CR>
     set clipboard+=unnamedplus
+
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap $ g$
+    nnoremap ^ g^
+    nnoremap 0 g0
 
     " Indentation
     set expandtab
@@ -33,6 +40,11 @@
     nnoremap <Space>j <C-w>j
     nnoremap <Space>k <C-w>k
     nnoremap <Space>l <C-w>l
+
+    augroup strip_whitespaces
+        autocmd!
+        autocmd BufWritePre * :%s/\s\+$//e
+    augroup END
 
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
