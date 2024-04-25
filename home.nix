@@ -47,6 +47,7 @@ in {
       fd # extends capabilities of rg
       nodePackages.pyright
       luajitPackages.lua-lsp
+      java-language-server
       prettierd
       stylua
       ruff
@@ -56,6 +57,7 @@ in {
       sops
       python311Packages.ipython
       openssl
+      zoom-us
     ];
 
     sessionVariables = {
