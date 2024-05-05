@@ -48,8 +48,13 @@ in {
       nodePackages.pyright
       luajitPackages.lua-lsp
       java-language-server
+      ccls
+      llvmPackages_11.clang-unwrapped
+      python311Packages.compiledb
+      google-java-format
       prettierd
       stylua
+      astyle
       ruff
       alejandra
       nodejs_21
@@ -58,6 +63,10 @@ in {
       python311Packages.ipython
       openssl
       zoom-us
+      infracost
+      openvpn
+      # doxygen
+      # doxygen_gui
     ];
 
     sessionVariables = {
