@@ -28,6 +28,16 @@
           UseKeychain = "yes";
         };
       };
+      gitlab = {
+        host = "gitlab";
+        hostname = "cfgit.ddnss.de";
+        identitiesOnly = true;
+        identityFile = "${config.home.homeDirectory}/.ssh/private";
+        extraOptions = {
+          AddKeysToAgent = "yes";
+          UseKeychain = "yes";
+        };
+      };
       bitbucket = {
         host = "workbitbucket";
         hostname = "bitbucket.org";
