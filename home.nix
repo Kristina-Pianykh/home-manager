@@ -15,6 +15,7 @@ in {
     ./git.nix
     ./ssh.nix
     ./dotfiles/ideavimrc.nix
+    ./ripgrep.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -49,7 +50,6 @@ in {
       luajitPackages.lua-lsp
       java-language-server
       ccls
-      llvmPackages_11.clang-unwrapped
       python311Packages.compiledb
       google-java-format
       prettierd
