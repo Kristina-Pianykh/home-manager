@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   username = "krispian";
@@ -18,6 +19,14 @@ in {
     ./ripgrep.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: _: {
+      unstable = import inputs.nixpkgs-unstable {
+        system = final.system;
+        config.allowUnfree = true;
+      };
+    })
+  ];
   nixpkgs.config.allowUnfree = true;
   home = {
     inherit username homeDirectory;
@@ -33,6 +42,8 @@ in {
       ripgrep
       gnupg
       poetry
+      rye
+      unstable.uv
       tree
       jdk
       libreoffice-bin
