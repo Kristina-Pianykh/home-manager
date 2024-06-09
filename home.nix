@@ -62,13 +62,14 @@ in {
       java-language-server
       ccls
       python311Packages.compiledb
+      bison
       google-java-format
       prettierd
       stylua
       astyle
       ruff
       alejandra
-      nodejs_21
+      nodejs_22
       terraform-ls
       sops
       python311Packages.ipython

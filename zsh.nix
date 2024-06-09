@@ -1,8 +1,8 @@
 {config, ...}: {
   programs.zsh = {
     enable = true;
-    # autosuggestion.enable = false; # unstable
-    enableAutosuggestions = false;
+    autosuggestion.enable = false; # unstable
+    # enableAutosuggestions = false;
     syntaxHighlighting.enable = true;
     enableCompletion = false;
     history.extended = true;
