@@ -58,7 +58,7 @@ in {
       maven
       fd # extends capabilities of rg
       nodePackages.pyright
-      luajitPackages.lua-lsp
+      lua-language-server
       java-language-server
       ccls
       python311Packages.compiledb
@@ -73,12 +73,13 @@ in {
       terraform-ls
       sops
       python311Packages.ipython
+      # python311Packages.databricks-cli # points to deprecated repo
       openssl
       zoom-us
       infracost
       openvpn
-      # doxygen
-      # doxygen_gui
+      netcat-gnu
+      vscode
     ];
 
     sessionVariables = {
