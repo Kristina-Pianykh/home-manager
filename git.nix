@@ -18,6 +18,7 @@
         defaultBranch = "main";
       };
       core.editor = "nvim";
+      status.submodulesummary = "1";
     };
     includes = [
       {
