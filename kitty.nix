@@ -10,10 +10,11 @@
       "cmd+d" = "close_window";
       "cmd+j" = "next_window";
       "cmd+k" = "previous_window";
+      "cmd+s" = "next_layout";
     };
     theme = "Rosé Pine";
     settings = {
-      enabled_layouts = "tall";
+      enabled_layouts = "tall,vertical";
       shell = "${config.programs.zsh.package}/bin/zsh";
       window_padding_width = 10;
       confirm_os_window_close = 0;
