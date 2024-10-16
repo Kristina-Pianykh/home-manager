@@ -106,6 +106,12 @@ in {
       ls = "lsd -la";
       lsd = "lsd -la";
       rm = "rm -f";
+      s = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/mama-module";
+      m = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/mama-module/monitoring";
+      d = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/deploying";
+      f = "cd /Users/krispian/Uni/bachelorarbeit/topologies/SEQ_ABC";
+      t = "cd /Users/krispian/Uni/bachelorarbeit/project/test_field";
+      p = "cd /Users/krispian/Uni/bachelorarbeit/project/multisink-adaptive";
       home = "$EDITOR ~/.config/home-manager/home.nix";
       ipython = "ipython3";
       gl = "${./git_log_alias.sh}";
