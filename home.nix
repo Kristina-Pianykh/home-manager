@@ -75,11 +75,25 @@ in {
       python311Packages.ipython
       # python311Packages.databricks-cli # points to deprecated repo
       openssl
-      zoom-us
       infracost
       openvpn
       netcat-gnu
-      vscode
+      (bats.withLibraries (p: [p.bats-assert]))
+      dbt
+      # python311Packages.dbt-core
+      # python311Packages.dbt-redshift
+      parallel
+      unstable.hugo
+
+      # (writeShellApplication {
+      #   name = "show-nixos-org";
+      #
+      #   runtimeInputs = [curl w3m];
+      #
+      #   text = ''
+      #     curl -s 'https://nixos.org' | w3m -dump -T text/html
+      #   '';
+      # })
     ];
 
     sessionVariables = {
@@ -94,6 +108,7 @@ in {
       rm = "rm -f";
       home = "$EDITOR ~/.config/home-manager/home.nix";
       ipython = "ipython3";
+      gl = "${./git_log_alias.sh}";
     };
   };
 
