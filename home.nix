@@ -59,7 +59,10 @@ in {
       fd # extends capabilities of rg
       nodePackages.pyright
       lua-language-server
+      lua54Packages.luacheck
       java-language-server
+      jdt-language-server
+      vimPlugins.nvim-jdtls
       ccls
       python311Packages.compiledb
       bison
@@ -78,6 +81,7 @@ in {
       infracost
       openvpn
       netcat-gnu
+      python311Packages.ipython
       (bats.withLibraries (p: [p.bats-assert]))
       dbt
       # python311Packages.dbt-core
