@@ -119,6 +119,7 @@ in {
       home = "$EDITOR ~/.config/home-manager/home.nix";
       ipython = "ipython3";
       gl = "${./git_log_alias.sh}";
+      gst = "git status";
     };
   };
 
