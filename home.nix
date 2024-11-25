@@ -25,6 +25,7 @@ in {
         config.allowUnfree = true;
       };
     })
+    inputs.nixgl.overlay
   ];
   nixpkgs.config.allowUnfree = true;
   home = {
@@ -36,7 +37,6 @@ in {
       #joypixels
       rustup
       ripgrep
-      gnupg
       poetry
       unstable.uv
       tree
@@ -96,7 +96,7 @@ in {
       ls = "lsd -la";
       lsd = "lsd -la";
       rm = "rm -f";
-      home = "$EDITOR ~/.config/home-manager/home.nix";
+      home = "cd ~/.config/home-manager && $EDITOR .";
       ipython = "ipython3";
       gl = "${./git_log_alias.sh}";
       gst = "git status";
