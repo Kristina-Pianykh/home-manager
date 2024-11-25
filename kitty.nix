@@ -1,16 +1,32 @@
-{config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.kitty = {
     enable = true;
+    package = pkgs.symlinkJoin {
+      name = "kitty-wrapped";
+      paths = [pkgs.kitty];
+      postBuild = let
+        binWrapped = pkgs.writeShellScript "kitty-bin-wrapped" ''
+          ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty $@
+        '';
+      in ''
+        rm $out/bin/kitty
+        ln -s ${binWrapped} $out/bin/kitty
+      '';
+    };
     font = {
       name = "FiraCode Nerd Font";
       size = 14;
     };
     keybindings = {
-      "cmd+enter" = "new_window_with_cwd";
-      "cmd+d" = "close_window";
-      "cmd+j" = "next_window";
-      "cmd+k" = "previous_window";
-      "cmd+s" = "next_layout";
+      "Alt+enter" = "new_window_with_cwd";
+      "Alt+d" = "close_window";
+      "Alt+j" = "next_window";
+      "Alt+k" = "previous_window";
+      "Alt+s" = "next_layout";
     };
     theme = "Rosé Pine";
     settings = {
