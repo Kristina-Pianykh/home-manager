@@ -9,7 +9,7 @@
     userEmail = "kristinavrnrus@gmail.com";
     signing = {
       key = "C66C7DFC66E169F1";
-      gpgPath = "${pkgs.gnupg}/bin/gpg";
+      gpgPath = "/usr/bin/gpg";
       signByDefault = true;
     };
     diff-so-fancy.enable = true;
