@@ -20,20 +20,20 @@
       core.editor = "nvim";
       status.submodulesummary = "1";
     };
-    includes = [
-      {
-        condition = "gitdir:${config.home.homeDirectory}/Work/";
-        contents = {
-          user = {
-            name = "Kristina Pianykh";
-            email = "kristina.pianykh@diconium.com";
-            signingKey = "3A09BEC8E7DCA833";
-          };
-          commit = {
-            gpgSign = true;
-          };
-        };
-      }
-    ];
+    # includes = [
+    #   {
+    #     condition = "gitdir:${config.home.homeDirectory}/Work/";
+    #     contents = {
+    #       user = {
+    #         name = "Kristina Pianykh";
+    #         email = "kristina.pianykh@diconium.com";
+    #         signingKey = "3A09BEC8E7DCA833";
+    #       };
+    #       commit = {
+    #         gpgSign = true;
+    #       };
+    #     };
+    #   }
+    # ];
   };
 }

@@ -6,13 +6,12 @@
   ...
 }: let
   username = "krispian";
-  homeDirectory = "/Users/${username}";
+  homeDirectory = "/home/${username}";
   nullPackage = name: pkgs.writeShellScriptBin name "";
 in {
   imports = [
     ./zsh.nix
     ./kitty.nix
-    ./nvim.nix
     ./git.nix
     ./ssh.nix
     ./dotfiles/ideavimrc.nix
@@ -34,24 +33,18 @@ in {
     packages = with pkgs; [
       lsd
       bat
-      #nerdfonts
       #joypixels
-      awscli
       rustup
-      # parquet-tools # lib deps need update on their side
       ripgrep
       gnupg
       poetry
-      rye
       unstable.uv
       tree
       jdk
-      libreoffice-bin
       fzf
       jq
       docker
       docker-compose
-      azure-cli
       tflint
       terraform
       go
@@ -65,7 +58,6 @@ in {
       vimPlugins.nvim-jdtls
       ccls
       python311Packages.compiledb
-      bison
       google-java-format
       prettierd
       stylua
@@ -76,16 +68,10 @@ in {
       terraform-ls
       sops
       python311Packages.ipython
-      # python311Packages.databricks-cli # points to deprecated repo
       openssl
-      infracost
-      openvpn
       netcat-gnu
       python311Packages.ipython
       (bats.withLibraries (p: [p.bats-assert]))
-      dbt
-      # python311Packages.dbt-core
-      # python311Packages.dbt-redshift
       parallel
       unstable.hugo
 
@@ -106,16 +92,10 @@ in {
     };
 
     shellAliases = {
-      nvim = "NVIM_APPNAME=neovim-config ${pkgs.neovim}/bin/nvim";
+      # nvim = "NVIM_APPNAME=neovim-config ${pkgs.neovim}/bin/nvim";
       ls = "lsd -la";
       lsd = "lsd -la";
       rm = "rm -f";
-      s = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/mama-module";
-      m = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/mama-module/monitoring";
-      d = "cd /Users/krispian/Uni/bachelorarbeit/sigmod24-flink/deploying";
-      f = "cd /Users/krispian/Uni/bachelorarbeit/topologies/SEQ_ABC";
-      t = "cd /Users/krispian/Uni/bachelorarbeit/project/test_field";
-      p = "cd /Users/krispian/Uni/bachelorarbeit/project/multisink-adaptive";
       home = "$EDITOR ~/.config/home-manager/home.nix";
       ipython = "ipython3";
       gl = "${./git_log_alias.sh}";
