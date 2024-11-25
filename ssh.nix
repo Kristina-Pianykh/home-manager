@@ -25,7 +25,7 @@
         identityFile = "${config.home.homeDirectory}/.ssh/private";
         extraOptions = {
           AddKeysToAgent = "yes";
-          UseKeychain = "yes";
+          # UseKeychain = "yes";
         };
       };
       gitlab = {
@@ -35,7 +35,7 @@
         identityFile = "${config.home.homeDirectory}/.ssh/private";
         extraOptions = {
           AddKeysToAgent = "yes";
-          UseKeychain = "yes";
+          # UseKeychain = "yes";
         };
       };
     };
