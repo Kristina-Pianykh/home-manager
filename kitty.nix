@@ -5,18 +5,9 @@
 }: {
   programs.kitty = {
     enable = true;
-    package = pkgs.symlinkJoin {
-      name = "kitty-wrapped";
-      paths = [pkgs.kitty];
-      postBuild = let
-        binWrapped = pkgs.writeShellScript "kitty-bin-wrapped" ''
-          ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty $@
-        '';
-      in ''
-        rm $out/bin/kitty
-        ln -s ${binWrapped} $out/bin/kitty
-      '';
-    };
+    package =
+      pkgs.writeScriptBin "null" "";
+
     font = {
       name = "FiraCode Nerd Font";
       size = 14;
