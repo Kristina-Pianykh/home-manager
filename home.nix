@@ -48,9 +48,11 @@ in {
       tflint
       terraform
       go
+      gopls
+      gotools
       maven
       fd # extends capabilities of rg
-      nodePackages.pyright
+      pyright
       lua-language-server
       lua54Packages.luacheck
       java-language-server
@@ -74,6 +76,9 @@ in {
       (bats.withLibraries (p: [p.bats-assert]))
       parallel
       unstable.hugo
+      yazi
+      rclone
+      codecrafters-cli
 
       # (writeShellApplication {
       #   name = "show-nixos-org";
