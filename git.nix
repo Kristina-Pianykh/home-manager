@@ -6,12 +6,12 @@
   programs.git = {
     enable = true;
     userName = "Kristina Pianykh";
-    userEmail = "kristinavrnrus@gmail.com";
-    signing = {
-      key = "C66C7DFC66E169F1";
-      gpgPath = "/usr/bin/gpg";
-      signByDefault = true;
-    };
+    userEmail = "kristina.pianykh@goflink.com";
+    #signing = {
+    #  key = "C66C7DFC66E169F1";
+    #  gpgPath = "/usr/bin/gpg";
+    #  signByDefault = true;
+    #};
     diff-so-fancy.enable = true;
     extraConfig = {
       init = {

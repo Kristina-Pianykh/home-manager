@@ -4,9 +4,8 @@
   ...
 }: {
   programs.ghostty = {
-    enable = true;
-    package =
-      pkgs.writeScriptBin "null" "";
+    package = pkgs.stable.ghostty;
+    enable = false;
     enableZshIntegration = true;
     # installVimSyntax = true;
     settings = {

@@ -5,21 +5,21 @@
 }: {
   programs.kitty = {
     enable = true;
-    package =
-      pkgs.writeScriptBin "null" "";
+    # package =
+    #   pkgs.writeScriptBin "null" "";
 
     font = {
       name = "FiraCode Nerd Font";
       size = 14;
     };
     keybindings = {
-      "Alt+enter" = "new_window_with_cwd";
-      "Alt+d" = "close_window";
-      "Alt+j" = "next_window";
-      "Alt+k" = "previous_window";
-      "Alt+s" = "next_layout";
+      "super+enter" = "new_window_with_cwd";
+      "super+d" = "close_window";
+      "super+j" = "next_window";
+      "super+k" = "previous_window";
+      "super+s" = "next_layout";
     };
-    theme = "Rosé Pine";
+    themeFile = "rose-pine";
     settings = {
       enabled_layouts = "tall,vertical";
       shell = "${config.programs.zsh.package}/bin/zsh";
