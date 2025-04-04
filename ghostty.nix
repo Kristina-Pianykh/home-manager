@@ -4,12 +4,13 @@
   ...
 }: {
   programs.ghostty = {
-    package = pkgs.stable.ghostty;
-    enable = false;
+    package =
+      pkgs.writeScriptBin "null" "";
+    enable = true;
     enableZshIntegration = true;
     # installVimSyntax = true;
     settings = {
-      theme = "dark:rose-pine";
+      theme = "light:rose-pine-dawn,dark:rose-pine";
     };
   };
 }
