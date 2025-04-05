@@ -11,10 +11,11 @@
 in {
   imports = [
     ./zsh.nix
+    ./systemd.nix
     ./kitty.nix
     ./git.nix
     ./ssh.nix
-    ./dotfiles/ideavimrc.nix
+    # ./dotfiles/ideavimrc.nix
     ./ripgrep.nix
   ];
 
@@ -79,6 +80,7 @@ in {
       yazi
       rclone
       codecrafters-cli
+      inotify-tools
 
       # (writeShellApplication {
       #   name = "show-nixos-org";
