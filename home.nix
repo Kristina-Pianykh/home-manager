@@ -8,7 +8,12 @@
   username = "kristina.pianykh@goflink.com";
   homeDirectory = "/Users/${username}";
   nullPackage = name: pkgs.writeShellScriptBin name "";
+  # sshWorkHostAlias = "work";
 in {
+  _module.args = {
+    sshWorkHostAlias = "work";
+  };
+
   imports = [
     ./zsh.nix
     ./kitty.nix
@@ -94,6 +99,7 @@ in {
 
       # flink related
       mask
+      golangci-lint
 
       # (writeShellApplication {
       #   name = "show-nixos-org";

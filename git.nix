@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  sshWorkHostAlias,
   ...
 }: {
   programs.git = {
@@ -19,6 +20,12 @@
       };
       core.editor = "nvim";
       status.submodulesummary = "1";
+      url = {
+        "git@${sshWorkHostAlias}:goflink" = {
+          # TODO: reference from ssh.nix
+          insteadOf = "https://github.com/goflink";
+        };
+      };
     };
     # includes = [
     #   {
