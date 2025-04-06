@@ -13,6 +13,11 @@
       export GNUPGHOME="~/.gnupg"
       export GPG_TTY=$(tty)
 
+      export GOPRIVATE=github.com/goflink/*
+      export GOPATH=$HOME/go
+      export GOBIN=$HOME/go/bin
+      export PATH="$GOBIN:$PATH"
+
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
         yazi "$@" --cwd-file="$tmp"
