@@ -16,6 +16,7 @@ in {
 
   imports = [
     ./zsh.nix
+    ./launchd.nix
     ./kitty.nix
     ./ghostty.nix
     ./git.nix
@@ -96,6 +97,7 @@ in {
       kubectl
       vscode
       htop
+      fswatch
 
       # flink related
       mask
