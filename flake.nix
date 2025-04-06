@@ -19,6 +19,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ghostty.url = "github:ghostty-org/ghostty";
   };
 
   outputs = {
@@ -27,6 +28,7 @@
     nixpkgs-stable,
     nixpkgs-unstable,
     home-manager,
+    ghostty,
     mac-app-util,
     sops-nix,
     ...
@@ -46,6 +48,7 @@
         ./home.nix
         sops-nix.homeManagerModules.sops
         mac-app-util.homeManagerModules.default
+        # ghostty.homeModules.default
       ];
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
