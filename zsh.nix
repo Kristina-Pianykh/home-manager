@@ -18,6 +18,8 @@
       export GOBIN=$HOME/go/bin
       export PATH="$GOBIN:$PATH"
 
+      export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
         yazi "$@" --cwd-file="$tmp"

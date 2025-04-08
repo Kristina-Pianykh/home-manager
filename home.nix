@@ -8,7 +8,7 @@
   username = "kristina.pianykh@goflink.com";
   homeDirectory = "/Users/${username}";
   nullPackage = name: pkgs.writeShellScriptBin name "";
-  # sshWorkHostAlias = "work";
+  gcloud = pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin];
 in {
   _module.args = {
     sshWorkHostAlias = "work";
@@ -93,7 +93,8 @@ in {
       codecrafters-cli
       neovim
       podman
-      google-cloud-sdk
+      # google-cloud-sdk
+      gcloud
       kubectl
       vscode
       htop
