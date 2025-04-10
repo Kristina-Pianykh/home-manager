@@ -4,6 +4,62 @@
   pkgs,
   ...
 }: {
+  home.file."date_parser.py" = {
+    text = ''
+      import os
+      from datetime import datetime
+      import argparse
+
+
+      def get_last_modified_date(file_path):
+          try:
+              # Get the last modified timestamp
+              timestamp = os.path.getmtime(file_path)
+              # Convert timestamp to a human-readable date and time
+              return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+          except FileNotFoundError:
+              return f"Error: The file {file_path} does not exist."
+
+
+      def get_last_modified_timestamp(file_path):
+          try:
+              # Get the last modified timestamp (epoch)
+              return int(os.path.getmtime(file_path))
+          except FileNotFoundError:
+              return f"Error: The file {file_path} does not exist."
+
+
+      if __name__ == "__main__":
+          # Set up argument parser
+          parser = argparse.ArgumentParser(
+              description="Get the last modified date or timestamp of a file."
+          )
+          parser.add_argument("file", help="The absolute path to the file")
+          parser.add_argument(
+              "--date",
+              action="store_true",
+              help="Print the last modified date in human-readable format",
+          )
+          parser.add_argument(
+              "--timestamp",
+              action="store_true",
+              help="Print the last modified timestamp (epoch)",
+          )
+
+          # Parse arguments
+          args = parser.parse_args()
+
+          if args.date:
+              # Print the human-readable date
+              print(get_last_modified_date(args.file))
+          elif args.timestamp:
+              # Print the Unix timestamp (epoch)
+              print(get_last_modified_timestamp(args.file))
+          else:
+              # If no argument is provided, show usage message
+              print("Error: You must specify either --date or --timestamp")
+    '';
+  };
   home.file."keepass_sync.sh" = {
     text = ''
       #!/usr/bin/env sh
@@ -23,15 +79,9 @@
           echo "[$(date '+%Y-%m-%d %H:%M:%S')] Checksums differ"
 
           # Get timestamps
-          if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            # Linux
-            local_epoch=$(stat -c %Y "$WATCHED_FILE")
-          elif [[ "$OSTYPE" == "darwin"* ]]; then
-            # macOS
-            local_epoch=$(stat -f %m "$WATCHED_FILE")
-          fi
-
+          local_epoch=$(python3 $HOME/date_parser.py $WATCHED_FILE --timestamp)
           remote_date=$(rclone lsl "$REMOTE_FILE" 2>/dev/null | awk '{print $2, $3}')
+
           if date -d "$remote_date" +%s >/dev/null 2>&1; then
             remote_epoch=$(date -d "$remote_date" +%s)
           else
