@@ -80,7 +80,8 @@ in {
       yazi
       rclone
       codecrafters-cli
-      inotify-tools
+      # inotify-tools
+      # fswatch
 
       # (writeShellApplication {
       #   name = "show-nixos-org";
