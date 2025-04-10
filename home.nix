@@ -98,11 +98,12 @@ in {
       kubectl
       vscode
       htop
-      fswatch
+      # fswatch
 
       # flink related
       mask
       golangci-lint
+      deno
 
       # (writeShellApplication {
       #   name = "show-nixos-org";
