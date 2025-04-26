@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = false; # unstable
@@ -8,7 +12,7 @@
     history.extended = true;
     dotDir = ".config/zsh";
 
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
       export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
       export GNUPGHOME="~/.gnupg"
       export GPG_TTY=$(tty)
